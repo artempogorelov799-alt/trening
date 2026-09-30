@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luca Chobanu — Official Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0c10;
+            --surface: #12161f;
+            --border: #21262d;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #3b82f6;
+            --tg-blue: #2481cc;
+            --hero-grad-1: rgba(18, 22, 31, 0.95);
+            --hero-grad-2: rgba(14, 18, 26, 0.95);
+        }
+
+        body.light-theme {
+            --bg: #f4f5f8;
+            --surface: #ffffff;
+            --border: #e3e5ea;
+            --text-main: #12161f;
+            --text-muted: #5b6270;
+            --accent: #2563eb;
+            --tg-blue: #2481cc;
+            --hero-grad-1: rgba(255, 255, 255, 0.97);
+            --hero-grad-2: rgba(238, 241, 246, 0.97);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: var(--text-main); line-height: 1.6; padding-top: 115px; padding-bottom: 60px; transition: background-color 0.25s, color 0.25s; }
+        section { transition: background-color 0.25s, border-color 0.25s; }
+
+        .img-fallback { position: relative; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(59,130,246,0.02)); color: var(--text-muted); font-size: 12px; text-align: center; flex-direction: column; gap: 8px; }
+        .img-fallback svg { width: 36px; height: 36px; opacity: 0.5; }
+
+        .splash-screen { position: fixed; inset: 0; background: radial-gradient(circle at 50% 45%, #141a26 0%, #05070a 65%); display: flex; align-items: center; justify-content: center; z-index: 999999; transition: opacity 0.7s ease, visibility 0.7s ease; overflow: hidden; }
+        .splash-screen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+        .splash-screen::before { content: ''; position: absolute; width: 340px; height: 340px; background: radial-gradient(circle, rgba(59,130,246,0.28), transparent 70%); filter: blur(40px); animation: splashGlow 3s ease-in-out infinite; }
+        @keyframes splashGlow { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.18); } }
+        .splash-text { font-family: 'Great Vibes', cursive; font-size: 58px; line-height: 1; color: #8ec5ff; text-shadow: 0 0 18px rgba(59,130,246,0.6), 0 0 42px rgba(59,130,246,0.3); position: relative; z-index: 1; padding-right: 6px; }
+        .splash-text::after { content: ''; display: inline-block; width: 3px; height: 46px; background: #60a5fa; margin-left: 4px; vertical-align: -8px; animation: splashBlink 0.85s steps(1) infinite; }
+        @keyframes splashBlink { 50% { opacity: 0; } }
+        @media (max-width: 480px) {
+            .splash-text { font-size: 42px; }
+            .splash-text::after { height: 34px; vertical-align: -6px; }
+            .splash-screen::before { width: 240px; height: 240px; }
+        }
+
+        header { position: fixed; top: 0; left: 0; width: 100%; background: var(--bg); border-bottom: 1px solid var(--border); z-index: 99999; padding: 12px 20px; display: flex; flex-direction: column; gap: 8px; transition: background-color 0.25s, border-color 0.25s; }
+
+        .header-top { max-width: 740px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 700; font-size: 13px; color: var(--text-main); letter-spacing: 1.2px; text-decoration: none; text-transform: uppercase; }
+
+        .header-tg-btn { display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--tg-blue); color: #fff; text-decoration: none; font-size: 11.5px; font-weight: 600; padding: 7px 12px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; transition: 0.2s; }
+        .header-tg-btn:hover { background: #1b6ca8; }
+        .header-tg-btn:active { transform: scale(0.96); }
+        .header-tg-btn svg { width: 14px; height: 14px; fill: #fff; flex-shrink: 0; }
+
+        .controls-row { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+        .lang-switcher { display: flex; gap: 6px; }
+        .lang-btn { background: rgba(59, 130, 246, 0.15); border: 1px solid var(--accent); color: var(--accent); font-size: 12px; font-weight: 700; padding: 7px 16px; border-radius: 6px; cursor: pointer; transition: 0.2s; -webkit-tap-highlight-color: transparent; outline: none; pointer-events: auto; min-width: 52px; text-align: center; }
+        .lang-btn:hover { background: rgba(59, 130, 246, 0.28); box-shadow: 0 0 12px rgba(59, 130, 246, 0.4); }
+        .lang-btn:active { transform: scale(0.95); }
+
+        .theme-btn { background: rgba(128, 128, 128, 0.1); border: 1px solid var(--border); color: var(--text-main); font-size: 15px; width: 34px; height: 34px; border-radius: 6px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; outline: none; }
+        .theme-btn:hover { background: rgba(128, 128, 128, 0.2); }
+        .theme-btn:active { transform: scale(0.92); }
+
+        .nav-container { max-width: 740px; margin: 0 auto; width: 100%; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .nav-container::-webkit-scrollbar { display: none; }
+        .nav-links { display: inline-flex; gap: 4px; align-items: center; padding-bottom: 4px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; font-weight: 500; padding: 5px 10px; border-radius: 6px; transition: 0.2s; }
+        .nav-links a:hover { color: var(--text-main); background: rgba(128, 128, 128, 0.1); }
+
+        .wrapper { max-width: 740px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 20px; }
+        section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px; }
+
+        .hero-section { background: linear-gradient(135deg, var(--hero-grad-1), var(--hero-grad-2)); display: flex; flex-direction: column; gap: 16px; transition: background 0.25s; }
+        .hero-badge { display: inline-flex; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.2); padding: 4px 10px; border-radius: 6px; align-self: flex-start; }
+        .hero-title { font-size: 26px; font-weight: 700; color: var(--text-main); line-height: 1.3; }
+        .hero-title span { color: var(--accent); }
+        .hero-subtitle { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+
+        .profile-section { padding: 0; overflow: hidden; }
+        .profile-img { width: 100%; height: 400px; object-fit: cover; cursor: pointer; display: block; }
+        .profile-body { padding: 32px; }
+
+        .tags-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .tag { font-size: 11.5px; font-weight: 500; padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; transition: 0.2s; }
+        .tag:hover { opacity: 0.85; }
+        .tag.gold { background: rgba(234, 179, 8, 0.06); color: #d97706; border-color: rgba(234, 179, 8, 0.2); }
+        .tag.blue { background: rgba(59, 130, 246, 0.06); color: #2563eb; border-color: rgba(59, 130, 246, 0.2); }
+        .tag.purple { background: rgba(168, 85, 247, 0.06); color: #9333ea; border-color: rgba(168, 85, 247, 0.2); }
+        .tag.green { background: rgba(34, 197, 94, 0.06); color: #16a34a; border-color: rgba(34, 197, 94, 0.2); }
+
+        h1.name-heading { font-size: 22px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+        .institution { font-size: 13.5px; color: var(--text-muted); margin-bottom: 18px; }
+        h2 { font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.7; }
+        p strong { color: var(--text-main); font-weight: 600; }
+
+        .trainer-link { color: var(--accent); text-decoration: none; font-weight: 600; border-bottom: 1px dashed rgba(59, 130, 246, 0.5); }
+        .trainer-article { display: flex; gap: 20px; align-items: flex-start; margin-top: 14px; }
+        .trainer-img { width: 160px; height: 220px; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); cursor: pointer; flex-shrink: 0; }
+        .trainer-content { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .article-block { background: rgba(128, 128, 128, 0.03); border: 1px solid var(--border); padding: 12px 16px; border-radius: 8px; font-size: 13px; }
+        .article-block strong { color: var(--accent); display: block; margin-bottom: 4px; font-size: 13.5px; }
+
+        .quote-box { background: rgba(59, 130, 246, 0.03); border-left: 2px solid var(--accent); padding: 16px 20px; border-radius: 0 8px 8px 0; margin-top: 16px; font-style: italic; font-size: 13.5px; color: var(--accent); cursor: pointer; transition: 0.2s; }
+        .quote-box:hover { background: rgba(59, 130, 246, 0.07); }
+
+        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+        .gallery-item { height: 220px; border-radius: 10px; overflow: hidden; cursor: pointer; border: 1px solid var(--border); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .gallery-item:hover img { transform: scale(1.03); }
+
+        .telegram-btn-large { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--tg-blue); color: #fff; text-decoration: none; font-size: 15px; font-weight: 600; padding: 16px 20px; border-radius: 12px; width: 100%; margin-top: 16px; transition: 0.25s; }
+        .telegram-btn-large:hover { background: #1b6ca8; }
+        .telegram-btn-large svg { width: 20px; height: 20px; fill: #fff; }
+
+        #toast { visibility: hidden; min-width: 270px; background: var(--surface); color: var(--text-main); text-align: center; border-radius: 8px; padding: 12px 18px; position: fixed; z-index: 3000; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(20px); border: 1px solid var(--accent); opacity: 0; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-size: 13px; font-weight: 500; }
+        #toast.show { visibility: visible; transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        .modal { display: none; position: fixed; z-index: 200000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 10, 0.92); justify-content: center; align-items: center; padding: 20px; }
+        .modal.show { display: flex; }
+        .modal img { max-width: 100%; max-height: 85vh; border-radius: 10px; object-fit: contain; }
+        .modal-close { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 22px; cursor: pointer; background: rgba(255,255,255,0.05); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--border); transition: 0.2s; }
+        .modal-close:hover { background: rgba(255,255,255,0.15); }
+
+        footer { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 36px; }
+
+        @media(max-width: 600px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .trainer-article { flex-direction: column; align-items: center; text-align: center; }
+            .trainer-img { width: 100%; height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-text" id="splashText"></div>
+    </div>
+
+    <header>
+        <div class="header-top">
+            <a href="#home" class="logo" data-i18n="logo">LUCA.CHOBANU</a>
+            <a href="https://t.me/wrestluka" target="_blank" class="header-tg-btn">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.26-2.06-.48-.83-.27-1.49-.42-1.43-.89.03-.25.38-.51 1.08-.78 4.23-1.84 7.05-3.05 8.46-3.63 4.03-1.68 4.87-1.98 5.41-1.99.12 0 .38.03.55.17.14.12.18.28.2.45-.02.07-.02.13-.04.22z"/></svg>
+                <span data-i18n="header_tg_btn">Написать</span>
+            </a>
+            <div class="controls-row">
+                <button type="button" class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Сменить тему">🌙</button>
+                <div class="lang-switcher">
+                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLanguage()">EN</button>
+                </div>
+            </div>
+        </div>
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="#home" data-i18n="nav_home">Главная</a>
+                <a href="#profile" data-i18n="nav_profile">Профиль</a>
+                <a href="#science" data-i18n="nav_science">Науки</a>
+                <a href="#sport" data-i18n="nav_sport">Спорт</a>
+                <a href="#philosophy" data-i18n="nav_philosophy">Философия</a>
+                <a href="#gallery" data-i18n="nav_gallery">Галерея</a>
+                <a href="#kovalev-article" data-i18n="nav_mentor">Наставник</a>
+                <a href="#contact" data-i18n="nav_contact">Связь</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="wrapper">
+        <section id="home" class="hero-section">
+            <div class="hero-badge" data-i18n="hero_badge">Official Profile</div>
+            <h1 class="hero-title" data-i18n="hero_title">Персональная страница<br><span>Луки Чобану</span></h1>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">
+                Эксклюзивное пространство, подробно отражающее выдающиеся академические результаты, бескомпромиссную спортивную дисциплину, творческое развитие и принципы непрерывного личностного роста.
+            </p>
+        </section>
+
+        <section id="profile" class="profile-section">
+            <img src="https://files.catbox.moe/cpyt1y.jpg" alt="Лука Чобану" class="profile-img" id="mainPhoto">
+            <div class="profile-body">
+                <div class="tags-row">
+                    <span class="tag gold" data-i18n="tag_gold" data-toast-ru="⭐ Претендент на получение золотой медали по итогам учебы" data-toast-en="⭐ Candidate for a gold medal based on studies">Золотая медаль (Кандидат)</span>
+                    <span class="tag blue" data-i18n="tag_blue" data-toast-ru="🤼‍♂️ Около 4 лет упорных, регулярных тренировок в вольной борьбе" data-toast-en="🤼‍♂️ About 4 years of regular, dedicated training in freestyle wrestling">Вольная борьба</span>
+                    <span class="tag purple" data-i18n="tag_purple" data-toast-ru="👑 Назначен старостой группы всех воспитанников тренера В. В. Ковалева" data-toast-en="👑 Appointed group leader of all trainees of coach V. В. Kovalyov">Староста секции</span>
+                    <span class="tag green" data-i18n="tag_green" data-toast-ru="🎹 Успешно и с отличием завершил обучение в музыкальной школе" data-toast-en="🎹 Successfully and with honors graduated from music school">Музыкальное образование</span>
+                </div>
+                <h1 class="name-heading" data-i18n="name_heading">Чобану Лука Иванович</h1>
+                <div class="institution" data-i18n="institution">Григориопольская ГОСШ №2 им. А. Стоева с лицейскими классами</div>
+                <p data-i18n="profile_desc">
+                    Целеустремленный, дисциплинированный и разносторонне развитый молодой человек. Лука гармонично совмещает углубленное изучение точных и естественных наук, постоянную умственную работу, лидерские позиции на борцовском ковре и высокие морально-этические жизненные ориентиры. Каждый день для него — это шаг вперед к поставленным масштабным целям.
+                </p>
+            </div>
+        </section>
+
+        <section id="science">
+            <h2 data-i18n="science_title">📚 Академические успехи и интеллектуальное развитие</h2>
+            <p data-i18n="science_p1">
+                Лука демонстрирует выдающиеся, стабильно высокие способности в изучении точных и естественных дисциплин. Его ключевые академические приоритеты и зоны особого экспертного интереса — это <strong>физика, химия, алгебра и геометрия</strong>. В этих сложных предметах он обладает глубокими профильными знаниями, выходящими далеко за рамки стандартной школьной программы.
+            </p>
+            <p data-i18n="science_p2">
+                Высочайший уровень академической подготовки подтвержден реальными победами и достижениями на олимпиадах различного уровня: Лука уверенно завоевал <strong>первые места в олимпиадах по алгебре и химии</strong>. Помимо точных наук, он ответственно и увлеченно изучает <strong>немецкий язык</strong>, развивая лингвистическое мышление и расширяя кругозор.
+            </p>
+            <p data-i18n="science_p3">
+                Важной частью интеллектуального и эстетического портрета Луки является его творческая сторона — он <strong>успешно окончил музыкальную школу</strong>. Занятия музыкой сформировали у него тонкое чувство ритма, усидчивость, концентрацию внимания и способность доводить любое начатое дело до безупречного результата.
+            </p>
+        </section>
+
+        <section id="sport">
+            <h2 data-i18n="sport_title">🤼‍♂️ Спортивные достижения, борьба и лидерство</h2>
+            <p data-i18n="sport_p1">
+                Уже около 4 лет Лука профессионально и самоотверженно занимается вольной борьбой, закаляя характер на каждой тренировке. Колоссальное влияние на формирование его спортивной философии, бойцовского духа и моральных принципов оказал <a href="#kovalev-article" class="trainer-link">Владимир Владимирович Ковалёв</a> — авторитетный руководитель местной спортивной школы и личный наставник Луки.
+            </p>
+            <p data-i18n="sport_p2">
+                Благодаря железной дисциплине, бескомпромиссной самоотдаче, сильному характеру и уважению со стороны коллектива, Владимир Владимирович доверил Луке почетную и ответственную роль <strong>старосты группы среди всех воспитанников</strong> спортивной секции. Он является надежной опорой для тренера и примером для младших ребят.
+            </p>
+            <p data-i18n="sport_p3">
+                На борцовском ковре Лука регулярно доказывает свой уровень серьезными достижениями: он является официальным <strong>призером чемпионата ПМР по вольной борьбе</strong>. Он постоянно участвует в жестких конкурентных баталиях на масштабных турнирах, включая престижный <strong>чемпионат Республики Молдова</strong>, демонстрируя волю к победе и бойцовский стержень.
+            </p>
+        </section>
+
+        <section id="philosophy">
+            <h2 data-i18n="phil_title">💡 Ценности, принципы и философия жизни</h2>
+            <p data-i18n="phil_p1">
+                В редкие часы свободного времени, остающиеся после напряженной учебы, музыкальных занятий и изнуряющих тренировок на ковре, Лука уделяет особое внимание <strong>саморазвитию, чтению и всесторонней помощи родителям</strong>. Он глубоко ценит семейные устои, взаимную поддержку, искреннюю заботу и личную ответственность за свои поступки перед близкими.
+            </p>
+            <p data-i18n="phil_p2">
+                Главный жизненный ориентир и внутренний закон Луки — никогда не останавливаться на достигнутом, уверенно двигаться вперед вопреки любым препятствиям и кризисам, не бояться оправданных жизненных рисков и при любых обстоятельствах <strong>всегда оставаться самим собой</strong>, сохраняя честь и достоинство.
+            </p>
+            <div class="quote-box" id="quoteBox" data-i18n="quote_text">
+                «Всегда саморазвиваться и идти вперёд несмотря ни на что, не бояться рисков и всегда быть самим собой».
+            </div>
+        </section>
+
+        <section id="gallery">
+            <h2 data-i18n="gallery_title">📸 Медиаматериалы и галерея</h2>
+            <p data-i18n="gallery_sub">Нажмите на любое изображение для детального просмотра в высоком разрешении:</p>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-img="https://files.catbox.moe/l5ewx1.jpg">
+                    <img src="https://files.catbox.moe/l5ewx1.jpg" alt="Фото Луки 1">
+                </div>
+                <div class="gallery-item" data-img="https://files.catbox.moe/rn96ed.jpg">
+                    <img src="https://files.catbox.moe/rn96ed.jpg" alt="Фото Луки 2">
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 data-i18n="contact_title">💬 Связаться с Лукой</h2>
+            <p data-i18n="contact_sub">Хотите пообщаться, обсудить общие интересы в сфере точных наук или спорта, либо поддержать его проекты? Напишите ему напрямую в Telegram — кнопка всегда доступна вверху экрана.</p>
+        </section>
+
+        <section id="kovalev-article">
+            <h2 data-i18n="mentor_title">🏆 Ковалёв Владимир Владимирович — Наставник и руководитель</h2>
+            <div class="trainer-article">
+                <img src="https://i.postimg.cc/FF7pG0yk/Screenshot-2026-09-05-19-22-15-979_com.miui.gallery-edit.jpg" alt="Владимир Владимирович Ковалёв" class="trainer-img" id="trainerPhoto">
+                <div class="trainer-content">
+                    <div class="article-block">
+                        <strong data-i18n="block1_title">Руководство спортшколой Григориополя</strong>
+                        <span data-i18n="block1_text">Владимир Владимирович — ключевая фигура в развитии спортивной жизни Григориополя. Он возглавляет местную детско-юношескую спортивную школу (ДЮСШ). В официальных документах он фигурирует как начальник МОУ ДО «ДЮСШ г. Григориополь» (ранее его руководящая должность также официально обозначалась как директор спортивной школы).</span>
+                    </div>
+                    <div class="article-block">
+                        <strong data-i18n="block2_title">Многообразие спортивных секций и направлений</strong>
+                        <span data-i18n="block2_text">Под его мудрым руководством в школе активно развиваются десятки спортивных направлений: вольная борьба, футбол, академическая гребля, легкая и тяжелая атлетика, шахматы, картинг и настольный теннис, воспитывая в детях волю к победе, дисциплину и командный дух.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer data-i18n="footer_text">© Персональная страница Луки Чобану</footer>
+    </div>
+
+    <div class="modal" id="imgModal">
+        <div class="modal-close" onclick="closeModal()">&times;</div>
+        <img id="modalImg" src="" alt="">
+    </div>
+
+    <div id="toast"></div>
+
+    <script>
+        const translations = {
+            ru: {
+                logo: "LUCA.CHOBANU",
+                nav_home: "Главная", nav_profile: "Профиль", nav_science: "Науки",
+                nav_sport: "Спорт", nav_philosophy: "Философия", nav_gallery: "Галерея",
+                nav_mentor: "Наставник", nav_contact: "Связь",
+                hero_badge: "Official Profile",
+                hero_title: 'Персональная страница<br><span>Луки Чобану</span>',
+                hero_subtitle: "Эксклюзивное пространство, подробно отражающее выдающиеся академические результаты, бескомпромиссную спортивную дисциплину, творческое развитие и принципы непрерывного личностного роста.",
+                tag_gold: "Золотая медаль (Кандидат)",
+                tag_blue: "Вольная борьба",
+                tag_purple: "Староста секции",
+                tag_green: "Музыкальное образование",
+                name_heading: "Чобану Лука Иванович",
+                institution: "Григориопольская ГОСШ №2 им. А. Стоева с лицейскими классами",
+                profile_desc: "Целеустремленный, дисциплинированный и разносторонне развитый молодой человек. Лука гармонично совмещает углубленное изучение точных и естественных наук, постоянную умственную работу, лидерские позиции на борцовском ковре и высокие морально-этические жизненные ориентиры. Каждый день для него — это шаг вперед к поставленным масштабным целям.",
+                header_tg_btn: "Написать",
+                science_title: "📚 Академические успехи и интеллектуальное развитие",
+                science_p1: 'Лука демонстрирует выдающиеся, стабильно высокие способности в изучении точных и естественных дисциплин. Его ключевые академические приоритеты и зоны особого экспертного интереса — это <strong>физика, химия, алгебра и геометрия</strong>. В этих сложных предметах он обладает глубокими профильными знаниями, выходящими далеко за рамки стандартной школьной программы.',
+                science_p2: 'Высочайший уровень академической подготовки подтвержден реальными победами и достижениями на олимпиадах различного уровня: Лука уверенно завоевал <strong>первые места в олимпиадах по алгебре и химии</strong>. Помимо точных наук, он ответственно и увлеченно изучает <strong>немецкий язык</strong>, развивая лингвистическое мышление и расширяя кругозор.',
+                science_p3: 'Важной частью интеллектуального и эстетического портрета Луки является его творческая сторона — он <strong>успешно окончил музыкальную школу</strong>. Занятия музыкой сформировали у него тонкое чувство ритма, усидчивость, концентрацию внимания и способность доводить любое начатое дело до безупречного результата.',
+                sport_title: "🤼‍♂️ Спортивные достижения, борьба и лидерство",
+                sport_p1: 'Уже около 4 лет Лука профессионально и самоотверженно занимается вольной борьбой, закаляя характер на каждой тренировке. Колоссальное влияние на формирование его спортивной философии, бойцовского духа и моральных принципов оказал <a href="#kovalev-article" class="trainer-link">Владимир Владимирович Ковалёв</a> — авторитетный руководитель местной спортивной школы и личный наставник Луки.',
+                sport_p2: 'Благодаря железной дисциплине, бескомпромиссной самоотдаче, сильному характеру и уважению со стороны коллектива, Владимир Владимирович доверил Луке почетную и ответственную роль <strong>старосты группы среди всех воспитанников</strong> спортивной секции. Он является надежной опорой для тренера и примером для младших ребят.',
+                sport_p3: 'На борцовском ковре Лука регулярно доказывает свой уровень серьезными достижениями: он является официальным <strong>призером чемпионата ПМР по вольной борьбе</strong>. Он постоянно участвует в жестких конкурентных баталиях на масштабных турнирах, включая престижный <strong>чемпионат Республики Молдова</strong>, демонстрируя волю к победе и бойцовский стержень.',
+                phil_title: "💡 Ценности, принципы и философия жизни",
+                phil_p1: 'В редкие часы свободного времени, остающиеся после напряженной учебы, музыкальных занятий и изнуряющих тренировок на ковре, Лука уделяет особое внимание <strong>саморазвитию, чтению и всесторонней помощи родителям</strong>. Он глубоко ценит семейные устои, взаимную поддержку, искреннюю заботу и личную ответственность за свои поступки перед близкими.',
+                phil_p2: 'Главный жизненный ориентир и внутренний закон Луки — никогда не останавливаться на достигнутом, уверенно двигаться вперед вопреки любым препятствиям и кризисам, не бояться оправданных жизненных рисков и при любых обстоятельствах <strong>всегда оставаться самим собой</strong>, сохраняя честь и достоинство.',
+                quote_text: '«Всегда саморазвиваться и идти вперёд несмотря ни на что, не бояться рисков и всегда быть самим собой».',
+                gallery_title: "📸 Медиаматериалы и галерея",
+                gallery_sub: "Нажмите на любое изображение для детального просмотра в высоком разрешении:",
+                contact_title: "💬 Связаться с Лукой",
+                contact_sub: "Хотите пообщаться, обсудить общие интересы в сфере точных наук или спорта, либо поддержать его проекты? Напишите ему напрямую в Telegram — кнопка всегда доступна вверху экрана.",
+                mentor_title: "🏆 Ковалёв Владимир Владимирович — Наставник и руководитель",
+                block1_title: "Руководство спортшколой Григориополя",
+                block1_text: 'Владимир Владимирович — ключевая фигура в развитии спортивной жизни Григориополя. Он возглавляет местную детско-юношескую спортивную школу (ДЮСШ). В официальных документах он фигурирует как начальник МОУ ДО «ДЮСШ г. Григориополь» (ранее его руководящая должность также официально обозначалась как директор спортивной школы).',
+                block2_title: "Многообразие спортивных секций и направлений",
+                block2_text: 'Под его мудрым руководством в школе активно развиваются десятки спортивных направлений: вольная борьба, футбол, академическая гребля, легкая и тяжелая атлетика, шахматы, картинг и настольный теннис, воспитывая в детях волю к победе, дисциплину и командный дух.',
+                footer_text: "© Персональная страница Луки Чобану"
+            },
+            en: {
+                logo: "LUCA.CHOBANU",
+                nav_home: "Home", nav_profile: "Profile", nav_science: "Academics",
+                nav_sport: "Sports", nav_philosophy: "Philosophy", nav_gallery: "Gallery",
+                nav_mentor: "Mentor", nav_contact: "Contact",
+                hero_badge: "Official Profile",
+                hero_title: 'Personal Page<br><span>Luca Chobanu</span>',
+                hero_subtitle: "An exclusive space detailing outstanding academic achievements, uncompromising athletic discipline, creative growth, and a commitment to continuous personal development.",
+                tag_gold: "Gold Medal (Candidate)",
+                tag_blue: "Freestyle Wrestling",
+                tag_purple: "Section Leader",
+                tag_green: "Music Education",
+                name_heading: "Luca Ivanovich Chobanu",
+                institution: "Grigoriopol General Secondary School No. 2 named after A. Stoev, with lyceum classes",
+                profile_desc: "A driven, disciplined, and well-rounded young man. Luca combines in-depth study of the exact and natural sciences, constant intellectual effort, leadership on the wrestling mat, and strong moral principles. Every day for him is a step forward toward his larger goals.",
+                header_tg_btn: "Message",
+                science_title: "📚 Academic Achievements and Intellectual Growth",
+                science_p1: 'Luca shows outstanding, consistently high ability in the exact and natural sciences. His key academic focus areas are <strong>physics, chemistry, algebra, and geometry</strong>, where his knowledge goes well beyond the standard school curriculum.',
+                science_p2: 'This level of academic preparation is backed by real results at olympiads: Luca has won <strong>first place in both algebra and chemistry olympiads</strong>. Alongside the exact sciences, he studies <strong>German</strong>, broadening his linguistic thinking and general outlook.',
+                science_p3: "An important part of Luca's intellectual and creative profile is that he <strong>graduated from music school</strong>. His musical training developed a fine sense of rhythm, focus, and the ability to see any task through to a polished result.",
+                sport_title: "🤼‍♂️ Athletic Achievements, Wrestling and Leadership",
+                sport_p1: 'For about 4 years now, Luca has trained in freestyle wrestling with dedication and discipline. A major influence on his athletic philosophy, fighting spirit, and moral principles has been <a href="#kovalev-article" class="trainer-link">Vladimir Vladimirovich Kovalyov</a> — the head of the local sports school and Luca\'s personal coach.',
+                sport_p2: "Thanks to his iron discipline, total commitment, strong character, and the respect of his teammates, Vladimir Vladimirovich entrusted Luca with the responsible role of <strong>group leader among all the section's athletes</strong>. He is a reliable support for the coach and an example for younger athletes.",
+                sport_p3: 'On the mat, Luca regularly proves his level with serious results: he is an official <strong>medalist of the Transnistria (PMR) freestyle wrestling championship</strong>. He also competes in tough tournaments including the prestigious <strong>Republic of Moldova championship</strong>, showing real fighting spirit.',
+                phil_title: "💡 Values, Principles and Life Philosophy",
+                phil_p1: 'In the rare free time left after intense study, music, and exhausting training, Luca focuses on <strong>self-development, reading, and helping his parents</strong>. He deeply values family, mutual support, genuine care, and personal responsibility toward loved ones.',
+                phil_p2: "Luca's main guiding principle is to never stop improving, to keep moving forward through any obstacle, to take justified risks without fear, and to <strong>always stay true to himself</strong> while keeping his honor and dignity.",
+                quote_text: '"Always keep growing and moving forward no matter what, don\'t be afraid to take risks, and always stay true to yourself."',
+                gallery_title: "📸 Media and Gallery",
+                gallery_sub: "Click any image to view it in full resolution:",
+                contact_title: "💬 Get in Touch with Luca",
+                contact_sub: "Want to chat, discuss shared interests in science or sport, or support his projects? Message him directly on Telegram — the button is always available at the top of the screen.",
+                mentor_title: "🏆 Vladimir Vladimirovich Kovalyov — Mentor and Coach",
+                block1_title: "Head of the Grigoriopol Sports School",
+                block1_text: 'Vladimir Vladimirovich is a key figure in Grigoriopol\'s sports life. He heads the local Youth Sports School (DYUSSH), officially listed as head of the municipal institution "DYUSSH Grigoriopol" (previously the role was also referred to as director).',
+                block2_title: "A Wide Range of Sports Programs",
+                block2_text: 'Under his guidance, the school actively runs dozens of sports programs: freestyle wrestling, football, rowing, track and field, weightlifting, chess, karting and table tennis, instilling in kids the will to win, discipline and team spirit.',
+                footer_text: "© Luca Chobanu — Personal Page"
+            }
+        };
+
+        let currentLang = 'ru';
+
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                if (el.parentElement && el.parentElement.closest('[data-i18n]')) return;
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key] !== undefined) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.querySelectorAll('[data-toast-ru]').forEach(el => {
+                el.setAttribute('data-toast-active', lang === 'ru' ? el.getAttribute('data-toast-ru') : el.getAttribute('data-toast-en'));
+            });
+            document.documentElement.lang = lang;
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ru' ? 'en' : 'ru';
+            applyTranslations(currentLang);
+            const btn = document.getElementById('langBtn');
+            btn.textContent = currentLang === 'ru' ? 'EN' : 'RUS';
+        }
+
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            toast.textContent = text;
+            toast.classList.add('show');
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        function openModal(src) {
+            document.getElementById('modalImg').src = src;
+            document.getElementById('imgModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('imgModal').classList.remove('show');
+        }
+
+        let isLight = false;
+        function toggleTheme() {
+            isLight = !isLight;
+            document.body.classList.toggle('light-theme', isLight);
+            document.getElementById('themeBtn').textContent = isLight ? '☀️' : '🌙';
+        }
+
+        function handleImgError(imgEl) {
+            if (imgEl.dataset.fallbackApplied) return;
+            imgEl.dataset.fallbackApplied = 'true';
+            const wrap = imgEl.parentElement;
+            imgEl.style.display = 'none';
+            const fallback = document.createElement('div');
+            fallback.className = 'img-fallback';
+            fallback.style.width = '100%';
+            fallback.style.height = imgEl.classList.contains('trainer-img') ? '220px' : (imgEl.classList.contains('profile-img') ? '400px' : '100%');
+            fallback.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="M21 15l-5-5L5 21"></path></svg><span>Фото не загрузилось</span>';
+            wrap.appendChild(fallback);
+        }
+
+        function runSplashIntro() {
+            const text = "Luka.com";
+            const el = document.getElementById('splashText');
+            const splash = document.getElementById('splashScreen');
+            if (!el || !splash) return;
+            document.body.style.overflow = 'hidden';
+            const failSafe = setTimeout(() => {
+                splash.classList.add('hide');
+                document.body.style.overflow = '';
+            }, 5000);
+            let i = 0;
+            function typeNext() {
+                if (i <= text.length) {
+                    el.textContent = text.slice(0, i);
+                    i++;
+                    setTimeout(typeNext, 130);
+                } else {
+                    setTimeout(() => {
+                        clearTimeout(failSafe);
+                        splash.classList.add('hide');
+                        document.body.style.overflow = '';
+                        setTimeout(() => splash.remove(), 800);
+                    }, 700);
+                }
+            }
+            typeNext();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            runSplashIntro();
+            applyTranslations(currentLang);
+            document.getElementById('langBtn').textContent = 'EN';
+
+            document.querySelectorAll('.tag').forEach(tag => {
+                tag.addEventListener('click', () => {
+                    const text = tag.getAttribute('data-toast-active') || tag.textContent;
+                    showToast(text);
+                });
+            });
+
+            document.querySelectorAll('#mainPhoto, #trainerPhoto, .gallery-item img').forEach(img => {
+                img.addEventListener('error', function () { handleImgError(this); });
+            });
+
+            document.getElementById('mainPhoto').addEventListener('click', function () {
+                openModal(this.src);
+            });
+            document.getElementById('trainerPhoto').addEventListener('click', function () {
+                openModal(this.src);
+            });
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('click', function () {
+                    openModal(this.getAttribute('data-img'));
+                });
+            });
+            document.getElementById('imgModal').addEventListener('click', function (e) {
+                if (e.target === this) closeModal();
+            });
+        });
+    </script>
+</body>
+</html>
